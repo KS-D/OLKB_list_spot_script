@@ -7,18 +7,20 @@ import requests
 def get_order_number():
     order_num = ''
     if len(sys.argv) > 1:
-        order_number = sys.argv[1]
+        if len(sys.argv) == 3:
+            order_num = sys.argv[2]
+        else:
+            order_num = sys.argv[1]
         
         with open('./order_number.txt', 'w') as file:
-            file.write(sys.argv[1])
+            file.write(order_num)
             file.flush()
             
-        order_num = sys.argv[1]
         return order_num
 
-    elif os.path.exists("./order_number.txt"):
+    elif os.path.exists('./order_number.txt'):
         
-        with open("./order_number.txt") as file:
+        with open('./order_number.txt') as file:
             order_num = file.readline()
 
     return order_num 
@@ -39,7 +41,7 @@ def get_file():
 
 def get_order_status():
     order_num = get_order_number()
-    print(order_num)
+    print('Order Number ' + order_num)
     if order_num != '' and order_num.isdigit():
         my_file = get_file()
         found_num = False
